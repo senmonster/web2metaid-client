@@ -31,7 +31,7 @@ build/
 
 # TypeScript
 *.tsbuildinfo
-*.d.ts
+ 
 
 # Temporary files
 tmp/
