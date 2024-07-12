@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "https://8.134.124.195:3001/$1"
+    }
+  ]
+}
