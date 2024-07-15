@@ -129,7 +129,7 @@ export default function Home() {
 
         <TGLoginBtn
           botUsername={process.env.BOT_USERNAME!}
-          authCallbackUrl='/path/to/callback/url'
+          authCallbackUrl='auth/telegram'
           buttonSize='large' // "large" | "medium" | "small"
           cornerRadius={5} // 0 - 20
           showAvatar={true} // true | false
