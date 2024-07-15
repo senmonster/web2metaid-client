@@ -9,6 +9,7 @@ import { isNil } from 'ramda';
 import { useRecoilValue } from 'recoil';
 import { MetaletWalletForBtc, btcConnect, loadBtc } from '@metaid/metaid'; // loadBtc form btc chain
 import { Web2MetaidSchema } from '@/config/web2metaid.entity';
+import { LoginButton as TGLoginBtn } from '@telegram-auth/react';
 
 export default function Home() {
   const { data: twitterUser } = useTwitterInfoQuery();
@@ -108,12 +109,9 @@ export default function Home() {
   };
 
   return (
-    <div className='container' suppressHydrationWarning>
+    <div className='container'>
       <Header />
-      <div
-        suppressHydrationWarning
-        className='relative flex flex-col gap-2 mt-16'
-      >
+      <div className='relative flex flex-col gap-2 mt-16'>
         <Button
           className='bg-gray-500  rounded-sm text-center'
           onClick={hanldeBindX}
@@ -128,6 +126,15 @@ export default function Home() {
         >
           Second, Bind With MetaID
         </Button>
+
+        <TGLoginBtn
+          botUsername={process.env.BOT_USERNAME!}
+          authCallbackUrl='/path/to/callback/url'
+          buttonSize='large' // "large" | "medium" | "small"
+          cornerRadius={5} // 0 - 20
+          showAvatar={true} // true | false
+          lang='en'
+        />
       </div>
     </div>
   );
