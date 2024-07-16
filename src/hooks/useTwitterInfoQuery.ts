@@ -25,7 +25,10 @@ export function useTwitterInfoQuery() {
       .then((v) => {
         if (v.data) setData(v.data);
       })
-      .catch(() => setError('Not Authenticated'))
+      .catch((err) => {
+        console.log('error', err);
+        setError('Not Authenticated');
+      })
       .finally(() => setLoading(false));
   }, []);
 
