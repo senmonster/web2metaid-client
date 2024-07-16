@@ -18,7 +18,7 @@ export function useTwitterInfoQuery() {
     setLoading(true);
     axios
       .get<any, AxiosResponse<User>>(
-        `${process.env.NEXT_PUBLIC_SERVER_URI}/web2metaid/me`,
+        `${process.env.NEXT_PUBLIC_CLIENT_URL}/web2metaid/me`,
         {
           withCredentials: true,
         }
