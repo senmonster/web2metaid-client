@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/web2metaid/me",
-      "destination": "https://api.metaid.io/web2metaid/me"
+      "destination": "https://api.metaid.io/web2metaid/web2metaid/me"
     }
   ],
   "headers": [
