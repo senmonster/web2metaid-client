@@ -1,1 +1,31 @@
-{}
+{
+  "rewrites": [
+    {
+      "source": "/web2metaid/me",
+      "destination": "https://api.metaid.io/web2metaid/me"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "https://www.web2metaid.com"
+        },
+        {
+          "key": "Access-Control-Allow-Credentials",
+          "value": "true"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET,OPTIONS,POST,PUT,PATCH,DELETE"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "X-Requested-With, Accept, Content-Type, Authorization"
+        }
+      ]
+    }
+  ]
+}
