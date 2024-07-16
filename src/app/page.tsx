@@ -21,13 +21,12 @@ export default function Home() {
       return;
     }
   };
-
   // twitter oauth Url constructor
   function getTwitterOauthUrl() {
     const rootUrl = 'https://twitter.com/i/oauth2/authorize';
     const options = {
-      redirect_uri: `${process.env.SERVER_URI}/oauth/twitter`,
-      client_id: process.env.TWITTER_CLIENT_ID!,
+      redirect_uri: `${process.env.NEXT_PUBLIC_SERVER_URI}/oauth/twitter`,
+      client_id: process.env.NEXT_PUBLIC_TWITTER_CLIENT_ID!,
       state: 'state',
       response_type: 'code',
       code_challenge: 'y_SfRG4BmOES02uqWeIkIgLQAlTBggyf_G7uKT51ku8',
@@ -126,9 +125,8 @@ export default function Home() {
         >
           Second, Bind With MetaID
         </Button>
-
         <TGLoginBtn
-          botUsername={process.env.BOT_USERNAME!}
+          botUsername={process.env.NEXT_PUBLIC_BOT_USERNAME!}
           authCallbackUrl='auth/telegram'
           buttonSize='large' // "large" | "medium" | "small"
           cornerRadius={5} // 0 - 20
