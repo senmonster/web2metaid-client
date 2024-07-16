@@ -13,11 +13,7 @@ jspm_packages/
 bower_components/
 
 # dotenv environment variables file
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env*.local
 
 # Next.js build output
 .next/
@@ -81,10 +77,6 @@ ehthumbs.db
 .prettiercache
 
  
-# dotenv environment variables file
-.env
-.env.test
-.env.production
-
+ 
 # Parcel-bundler cache (for those using it)
 .cache/
