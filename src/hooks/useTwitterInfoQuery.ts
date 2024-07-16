@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
+axios.defaults.withCredentials = true;
 
 export type User = {
   id: string;
