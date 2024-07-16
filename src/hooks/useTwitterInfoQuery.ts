@@ -12,7 +12,7 @@ export function useTwitterInfoQuery() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<User | null>(null);
-
+  console.log('NEXT_PUBLIC_SERVER_URI', process.env.NEXT_PUBLIC_SERVER_URI);
   useEffect(() => {
     setLoading(true);
     axios
