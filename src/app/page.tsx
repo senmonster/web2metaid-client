@@ -10,6 +10,7 @@ import { useRecoilValue } from 'recoil';
 import { MetaletWalletForBtc, btcConnect, loadBtc } from '@metaid/metaid'; // loadBtc form btc chain
 import { Web2MetaidSchema } from '@/config/web2metaid.entity';
 import { LoginButton as TGLoginBtn } from '@telegram-auth/react';
+import { useEffect } from 'react';
 
 export default function Home() {
   const { data: twitterUser } = useTwitterInfoQuery();

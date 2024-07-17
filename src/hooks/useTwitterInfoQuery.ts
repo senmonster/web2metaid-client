@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
+axios.defaults.withCredentials = true;
 
 export type User = {
   id: string;
@@ -12,12 +13,11 @@ export function useTwitterInfoQuery() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<User | null>(null);
-
   useEffect(() => {
     setLoading(true);
     axios
       .get<any, AxiosResponse<User>>(
-        `${process.env.NEXT_PUBLIC_SERVER_URI}/me`,
+        `${process.env.NEXT_PUBLIC_SERVER_URI}/web2metaid/me`,
         {
           withCredentials: true,
         }
@@ -25,7 +25,10 @@ export function useTwitterInfoQuery() {
       .then((v) => {
         if (v.data) setData(v.data);
       })
-      .catch(() => setError('Not Authenticated'))
+      .catch((err) => {
+        console.log('error', err);
+        setError('Not Authenticated');
+      })
       .finally(() => setLoading(false));
   }, []);
 

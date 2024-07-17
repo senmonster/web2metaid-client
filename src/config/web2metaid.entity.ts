@@ -9,15 +9,15 @@ export const Web2MetaidSchema: EntitySchema = {
       version: 1,
       body: [
         {
-          name: 'appName',
+          name: 'appName', // twitter
           type: 'string',
         },
         {
-          name: 'handler',
+          name: 'handler', // 'metaid_twittedid'
           type: 'string',
         },
         {
-          name: 'signature',
+          name: 'signature', // hash for metaid_twittedid
           type: 'string',
         },
       ],
