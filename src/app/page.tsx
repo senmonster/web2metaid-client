@@ -59,11 +59,12 @@ export default function Home() {
   const hanldeLoginWithX = async () => {
     // TODO: bind twitter, weibo, qq, wechat
     try {
-      window.location.href = await getTwitterOauthUrl();
+      // window.location.href = await getTwitterOauthUrl();
+      window.location.href = 'https://xngc7bmn-3000.asse.devtunnels.ms/';
 
       setTimeout(() => {
         setXOpen(true);
-      }, 2000);
+      }, 5000);
 
       // const response =`` await axios.get('http://localhost:5000/auth/twitter');
       // window.location.href = response.data.url;
