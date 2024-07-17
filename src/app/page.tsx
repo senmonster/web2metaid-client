@@ -22,8 +22,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { useState } from 'react';
 
 export default function Home() {
+  const [xOpen, setXOpen] = useState(false);
+  const [tgOpen, setTgOpen] = useState(false);
   const { data: twitterUser } = useTwitterInfoQuery();
   const { data: TelegramUser } = useTelegramInfoQuery();
 
@@ -56,7 +59,11 @@ export default function Home() {
   const hanldeLoginWithX = async () => {
     // TODO: bind twitter, weibo, qq, wechat
     try {
-      window.location.href = getTwitterOauthUrl();
+      window.location.href = await getTwitterOauthUrl();
+
+      setTimeout(() => {
+        setXOpen(true);
+      }, 2000);
 
       // const response =`` await axios.get('http://localhost:5000/auth/twitter');
       // window.location.href = response.data.url;
@@ -127,7 +134,7 @@ export default function Home() {
       <Header />
 
       <div className='space-x-4 absolute left-[40%] top-1/3 h-full'>
-        <Dialog>
+        <Dialog open={xOpen}>
           <DialogTrigger asChild>
             <Button variant='outline'>Bind Twitter</Button>
           </DialogTrigger>
