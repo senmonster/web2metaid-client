@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/web2metaid/me",
-      "destination": "https://api.metaid.io/web2metaid/web2metaid/me"
+      "source": "/twitter/me",
+      "destination": "https://api.metaid.io/web2metaid/twitter/me"
     }
   ],
   "headers": [

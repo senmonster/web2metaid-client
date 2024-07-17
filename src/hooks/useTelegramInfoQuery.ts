@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import { useRecoilState } from 'recoil';
-import { twitterUserAtom } from '@/store/account';
+import { telegramUserAtom } from '@/store/account';
 axios.defaults.withCredentials = true;
 
 export type User = {
@@ -11,15 +11,16 @@ export type User = {
   type: 'telegram' | 'twitter';
 };
 
-export function useTwitterInfoQuery() {
+export function useTelegramInfoQuery() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [data, setData] = useRecoilState(twitterUserAtom);
+  const [data, setData] = useRecoilState(telegramUserAtom);
+
   useEffect(() => {
     setLoading(true);
     axios
       .get<any, AxiosResponse<User>>(
-        `${process.env.NEXT_PUBLIC_SERVER_URI}/twitter/me`,
+        `${process.env.NEXT_PUBLIC_SERVER_URI}/telegram/me`,
         {
           withCredentials: true,
         }
