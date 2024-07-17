@@ -134,7 +134,7 @@ export default function Home() {
       <Header />
 
       <div className='space-x-4 absolute left-[40%] top-1/3 h-full'>
-        <Dialog open={xOpen}>
+        <Dialog open={xOpen} onOpenChange={setXOpen}>
           <DialogTrigger asChild>
             <Button variant='outline'>Bind Twitter</Button>
           </DialogTrigger>
@@ -174,7 +174,7 @@ export default function Home() {
             </DialogFooter>
           </DialogContent>
         </Dialog>
-        <Dialog>
+        <Dialog open={tgOpen} onOpenChange={setTgOpen}>
           <DialogTrigger asChild>
             <Button variant='outline'>Bind Telegram</Button>
           </DialogTrigger>
@@ -189,6 +189,11 @@ export default function Home() {
                 <TGLoginBtn
                   botUsername={process.env.NEXT_PUBLIC_BOT_USERNAME!}
                   authCallbackUrl={`${process.env.NEXT_PUBLIC_SERVER_URI}/oauth/telegram`}
+                  onAuthCallback={() => {
+                    setTimeout(() => {
+                      setTgOpen(true);
+                    }, 2000);
+                  }}
                   buttonSize='medium' // "large" | "medium" | "small"
                   cornerRadius={5} // 0 - 20
                   showAvatar={false} // true | false
