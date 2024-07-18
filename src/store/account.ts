@@ -2,6 +2,8 @@ import { IMetaletWalletForBtc } from '@metaid/metaid';
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
+const { persistAtom } = recoilPersist();
+
 export type User = {
   username: string;
   name: string;
@@ -9,7 +11,6 @@ export type User = {
   id: string;
 };
 
-const { persistAtom } = recoilPersist();
 export const walletAtom = atom<IMetaletWalletForBtc | null>({
   key: 'walletAtom',
   default: null,

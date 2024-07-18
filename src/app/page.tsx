@@ -3,8 +3,7 @@ import Header from '@/components/custom/header';
 import { Button } from '@/components/ui/button';
 import { useTwitterInfoQuery } from '@/hooks/useTwitterInfoQuery';
 import { User, walletRestoreParamsAtom } from '@/store/account';
-import axios from 'axios';
-import Image from 'next/image';
+
 import { isNil } from 'ramda';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { MetaletWalletForBtc, btcConnect, loadBtc } from '@metaid/metaid'; // loadBtc form btc chain
@@ -16,17 +15,16 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { useState } from 'react';
+import { bindTGModalOpenAtom, bindXModalOpenAtom } from '@/store/ue';
 
 export default function Home() {
-  const [xOpen, setXOpen] = useState(false);
-  const [tgOpen, setTgOpen] = useState(false);
+  const [xOpen, setXOpen] = useRecoilState(bindXModalOpenAtom);
+  const [tgOpen, setTgOpen] = useRecoilState(bindTGModalOpenAtom);
   const { data: twitterUser } = useTwitterInfoQuery();
   const { data: TelegramUser } = useTelegramInfoQuery();
 
@@ -59,15 +57,7 @@ export default function Home() {
   const hanldeLoginWithX = async () => {
     // TODO: bind twitter, weibo, qq, wechat
     try {
-      // window.location.href = await getTwitterOauthUrl();
-      window.location.href = 'https://xngc7bmn-3000.asse.devtunnels.ms/';
-
-      setTimeout(() => {
-        setXOpen(true);
-      }, 5000);
-
-      // const response =`` await axios.get('http://localhost:5000/auth/twitter');
-      // window.location.href = response.data.url;
+      window.location.href = await getTwitterOauthUrl();
     } catch (error) {
       console.error(error);
     }
