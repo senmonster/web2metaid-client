@@ -8,8 +8,8 @@ import { isNil } from 'ramda';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { MetaletWalletForBtc, btcConnect, loadBtc } from '@metaid/metaid'; // loadBtc form btc chain
 import { Web2MetaidSchema } from '@/config/web2metaid.entity';
-import { LoginButton as TGLoginBtn } from '@telegram-auth/react';
 import { useTelegramInfoQuery } from '@/hooks/useTelegramInfoQuery';
+import { Skeleton } from '@/components/ui/skeleton';
 
 import {
   Dialog,
@@ -21,8 +21,12 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { bindTGModalOpenAtom, bindXModalOpenAtom } from '@/store/ue';
+import { useEffect, useState } from 'react';
+import { TGLoginButton } from '@/components/custom/TelegramLogin';
 
 export default function Home() {
+  const [tgWidgetElem, setTgWidgetElem] = useState<HTMLElement | null>(null);
+
   const [xOpen, setXOpen] = useRecoilState(bindXModalOpenAtom);
   const [tgOpen, setTgOpen] = useRecoilState(bindTGModalOpenAtom);
   const { data: twitterUser } = useTwitterInfoQuery();
@@ -120,6 +124,18 @@ export default function Home() {
     }
   };
 
+  useEffect(() => {
+    if (tgOpen) {
+      setTimeout(() => {
+        setTgWidgetElem(
+          document.getElementById('telegram-login-web2metaid_bot')
+        );
+      }, 1800);
+    } else {
+      setTgWidgetElem(null);
+    }
+  }, [tgOpen]);
+
   return (
     <div className='container relative min-h-screen'>
       <Header />
@@ -173,23 +189,23 @@ export default function Home() {
             <DialogHeader>
               <DialogTitle>Bind Telegram</DialogTitle>
             </DialogHeader>
-            <div className='relative flex flex-col gap-2 space-y-6 items-center'>
-              <div className='flex flex-col items-center'>
+            <div className='relative flex flex-col gap-2 space-y-10 items-center'>
+              <div className='flex flex-col items-center relative'>
                 <div>{`First, You need to connect with Telegram`}</div>
                 <div>↓</div>
-                <TGLoginBtn
-                  botUsername={process.env.NEXT_PUBLIC_BOT_USERNAME!}
-                  authCallbackUrl={`${process.env.NEXT_PUBLIC_SERVER_URI}/oauth/telegram`}
-                  onAuthCallback={() => {
-                    setTimeout(() => {
-                      setTgOpen(true);
-                    }, 2000);
-                  }}
-                  buttonSize='medium' // "large" | "medium" | "small"
-                  cornerRadius={5} // 0 - 20
-                  showAvatar={false} // true | false
-                  lang='en'
-                />
+                {isNil(tgWidgetElem) && (
+                  <Skeleton className='w-[171px] h-[28px] rounded-md absolute top-[50px]' />
+                )}
+                <div className='absolute  top-[50px]'>
+                  <TGLoginButton
+                    botUsername={process.env.NEXT_PUBLIC_BOT_USERNAME!}
+                    authCallbackUrl={`${process.env.NEXT_PUBLIC_SERVER_URI}/oauth/telegram`}
+                    buttonSize='medium' // "large" | "medium" | "small"
+                    cornerRadius={5} // 0 - 20
+                    showAvatar={false} // true | false
+                    lang='en'
+                  />
+                </div>
               </div>
               <div className='flex flex-col  items-center'>
                 <div>{`Then you can perform binding operations.`}</div>

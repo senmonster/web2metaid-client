@@ -17,9 +17,6 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.1.0
         version: 1.1.0(@types/react@18.3.3)(react@18.3.1)
-      '@telegram-auth/react':
-        specifier: ^1.0.3
-        version: 1.0.3(react@18.3.1)
       axios:
         specifier: ^1.7.2
         version: 1.7.2
@@ -471,11 +468,6 @@ packages:
 
   '@swc/helpers@0.5.5':
     resolution: {integrity: sha512-KGYxvIOXcceOAbEk4bi/dVLEK9z8sZ0uBB3Il5b1rhfClSpcX0yfRO0KmTkqR2cnQDymwLB+25ZyMzICg/cm/A==}
-
-  '@telegram-auth/react@1.0.3':
-    resolution: {integrity: sha512-p8wXqaAuP5fH/p5+F8OHdmS9C3FZefVY6+NSdjGn7vd9+7oTdflXcLgA+SrO/KW+k4jY+qxgGbEG19Lyz/G0yA==}
-    peerDependencies:
-      react: '>=18'
 
   '@types/json5@0.0.29':
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
@@ -2790,10 +2782,6 @@ snapshots:
     dependencies:
       '@swc/counter': 0.1.3
       tslib: 2.6.3
-
-  '@telegram-auth/react@1.0.3(react@18.3.1)':
-    dependencies:
-      react: 18.3.1
 
   '@types/json5@0.0.29': {}
 
