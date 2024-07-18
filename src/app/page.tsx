@@ -150,7 +150,7 @@ export default function Home() {
         )
           ? 'User Canceled'
           : errorMessage;
-        alert('bind failed');
+        alert('bind failed:' + toastMessage);
       }
     }
   };
