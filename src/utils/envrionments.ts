@@ -1,12 +1,16 @@
+import { BtcNetwork } from './request';
+
 // add global envrc variables
+type Flag = 'metaid' | 'testid';
+
 type Environment = {
-  network: string;
+  network: BtcNetwork;
   base_man_url: string;
-  flag: string;
+  flag: Flag;
 };
 
 export const environment: Environment = {
-  network: 'testnet',
-  base_man_url: 'https://man-test.metaid.io',
-  flag: 'testid',
+  network: process.env.NEXT_PUBLIC_NETWORK! as BtcNetwork,
+  base_man_url: process.env.NEXT_PUBLIC_BASE_MAN_URL!,
+  flag: process.env.NEXT_PUBLIC_FLAG! as Flag,
 };

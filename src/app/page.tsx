@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useTwitterInfoQuery } from '@/hooks/useTwitterInfoQuery';
 import { User, walletRestoreParamsAtom } from '@/store/account';
 
-import { isNil } from 'ramda';
+import { isEmpty, isNil } from 'ramda';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { MetaletWalletForBtc, btcConnect, loadBtc } from '@metaid/metaid'; // loadBtc form btc chain
 import { Web2MetaidSchema } from '@/config/web2metaid.entity';
@@ -23,8 +23,13 @@ import {
 import { bindTGModalOpenAtom, bindXModalOpenAtom } from '@/store/ue';
 import { useEffect, useState } from 'react';
 import { TGLoginButton } from '@/components/custom/TelegramLogin';
+import { environment } from '@/utils/envrionments';
+import { metaidService } from '@/utils/api';
+import { useQuery } from '@tanstack/react-query';
 
 export default function Home() {
+  const walletParams = useRecoilValue(walletRestoreParamsAtom);
+
   const [tgWidgetElem, setTgWidgetElem] = useState<HTMLElement | null>(null);
 
   const [xOpen, setXOpen] = useRecoilState(bindXModalOpenAtom);
@@ -32,7 +37,18 @@ export default function Home() {
   const { data: twitterUser } = useTwitterInfoQuery();
   const { data: TelegramUser } = useTelegramInfoQuery();
 
-  const walletParams = useRecoilValue(walletRestoreParamsAtom);
+  const { data: BindData } = useQuery({
+    queryKey: ['web2metaid', 'pin'],
+    enabled: !isEmpty(walletParams?.address ?? ''),
+    queryFn: () =>
+      metaidService.getPinListByAddress({
+        addressType: 'owner',
+        address: walletParams?.address ?? '',
+        cursor: 0,
+        size: 100,
+        path: '/protcols/web2metaid',
+      }),
+  });
 
   const confirmConnect = () => {
     if (isNil(walletParams?.address)) {
@@ -75,7 +91,7 @@ export default function Home() {
     });
     const btcConnector = await btcConnect({
       wallet: _wallet,
-      network: 'testnet',
+      network: environment.network!,
     });
 
     const web2metaidEntity = await loadBtc(Web2MetaidSchema, {
@@ -86,9 +102,24 @@ export default function Home() {
       `${btcConnector.metaid}_${user?.id}`
     );
 
-    // todo: verify signature
-
     if (!isNil(user)) {
+      // todo: verify signature
+      const bindHistoryIndex = (BindData?.list ?? []).findIndex((d) => {
+        let summary = d?.contentSummary ?? '';
+        const isSummaryJson = summary.startsWith('{') && summary.endsWith('}');
+        const parseSummary = isSummaryJson ? JSON.parse(summary) : {};
+        if (
+          parseSummary?.appName === user.type &&
+          parseSummary?.signature === signature
+        ) {
+          return true;
+        }
+      });
+
+      if (bindHistoryIndex !== -1) {
+        alert(`You have already binded MetaID with your ${user.type} account`);
+        return;
+      }
       const body = {
         appName: user.type,
         handler: user,
@@ -100,7 +131,7 @@ export default function Home() {
             {
               body: JSON.stringify(body),
               contentType: 'text/plain;utf-8',
-              flag: 'testid',
+              flag: environment.flag,
             },
           ],
           options: {
